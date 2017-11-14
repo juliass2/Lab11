@@ -29,7 +29,22 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] bubbleSort(final int[] array) {
-        return null;
+        if (array.length == 0) {
+            return null;
+        }
+        if (array.length == 1) {
+            return array;
+        }
+        for (int i = 1; i < array.length; i++) {
+            int k = i;
+            while (k < array.length && array[k] < array[k - 1]) {
+                int temp = array[k];
+                array[k] = array[k - 1];
+                array[k - 1] = temp;
+                k++;
+            }
+        }
+        return array;
     }
 
     /**
@@ -39,7 +54,22 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] selectionSort(final int[] array) {
-        return null;
+        if (array.length == 1) {
+            return array;
+        }
+        for (int i = 0; i < array.length; i++) {
+            int minIndex = i;
+            //finding the minimum value
+            for (int j = i; j < array.length; j++) {
+                if (array[minIndex] > array[j]) {
+                    minIndex = j;
+                }
+            }
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+        return array;
     }
 
     /**
@@ -49,6 +79,18 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] mergeSort(final int[] array) {
+        if (array.length == 1) {
+            return array;
+        } else if (array.length == 2) {
+            if (array[0] > array[1]) {
+                int temp = array[0];
+                array[0] = array[1];
+                array[1] = temp;
+            }
+        } else {
+            int mid = array.length / 2;
+            return merge(array, 0, mid, array.length - 1);
+        }
         return null;
     }
 
@@ -79,6 +121,29 @@ public class Sorting {
         }
 
         /* TO DO: Merge left and right array here */
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < n1 && j < n2) {
+            if (left[i] < right[j]) {
+                arr[k] = left[i];
+                i++;
+            } else {
+                arr[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < n1) {
+            arr[k] = left[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            arr[k] = right[j];
+            j++;
+            k++;
+        }
         return arr;
     }
 
