@@ -88,8 +88,34 @@ public class Sorting {
                 array[1] = temp;
             }
         } else {
+            return sort(array, 0, array.length - 1);
+        }
+        return null;
+    }
+
+    /**
+     * Helper function for mergesort.
+     * @param array the array
+     * @param l the left end
+     * @param r the right end
+     * @return the sorted array
+     */
+    static int[] sort(final int[] array, final int l, final int r) {
+        if (l < r) {
+            //middle point
             int mid = array.length / 2;
-            return merge(array, 0, mid, array.length - 1);
+            int[] sorted1 = sort(array, l, mid);
+            int[] sorted2 = sort(array, mid + 1, r);
+            int[] combinedList = new int[array.length];
+            for (int i = 0; i < sorted1.length; i++) {
+                combinedList[i] = sorted1[i];
+            }
+            int j = 0;
+            for (int i = mid; i < sorted2.length + mid; i++) {
+                combinedList[i] = sorted2[j];
+                j++;
+            }
+            return merge(array, l, mid, r);
         }
         return null;
     }
